@@ -22,7 +22,6 @@ after_success:
   - docker push the2792/docker-multi-container-app-nginx
 
 deploy:
-  edge: true
   provider: elasticbeanstalk
   region: ap-northeast-1
   app: docker-multi-container-app
