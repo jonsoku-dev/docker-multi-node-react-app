@@ -7,10 +7,10 @@ const app = express()
 
 app.use(bodyParser.json())
 
-// create db table
-db.pool.query(`CREATE TABLE lists (id INTEGER AUTO_INCREMENT, value TEXT, PRIMARY KEY (id)`, (err, results, fields) => {
-    console.log('results', results)
-})
+// // create db table
+// db.pool.query(`CREATE TABLE lists (id INTEGER AUTO_INCREMENT, value TEXT, PRIMARY KEY (id)`, (err, results, fields) => {
+//     console.log('results', results)
+// })
 
 // DB Lists 테이블에 있는 모든 데이터를 프론트 서버에 보내주기
 app.get("/api/values", function (req, res) {
