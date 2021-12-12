@@ -1,0 +1,22 @@
+language: generic
+
+sudo: required
+
+services: docker
+
+before_install:
+  - docker build -t jonsoku/react-test-app -f ./frontend/Dockerfile.dev ./frontend
+
+script:
+  - docker run -e CI=true jonsoku/react-test-app npm run test -- --coverage
+
+after_success:
+  - docker build -t jonsoku/docker-multi-container-app-frontend ./frontend
+  - docker build -t jonsoku/docker-multi-container-app-backend ./backend
+  - docker build -t jonsoku/docker-multi-container-app-nginx ./nginx
+
+  - echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_ID" --password-stdin # login dockerhub
+
+  - docker push jonsoku/docker-multi-container-app-frontend
+  - docker push jonsoku/docker-multi-container-app-backend
+  - docker push jonsoku/docker-multi-container-app-nginx
